@@ -19,7 +19,7 @@ const Expenses = [
   {
     id: "e3",
     description: "A pair of clothes",
-    amount: 25.45,
+    amount: 5.45,
     date: new Date("2022-2-25"),
   },
   {

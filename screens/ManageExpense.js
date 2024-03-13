@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 export default function ManageExpense() {
-  return <div>Manage Expenses</div>;
+  return <Text>Manage Expenses</Text>;
 }
 
 const styles = StyleSheet.create({});

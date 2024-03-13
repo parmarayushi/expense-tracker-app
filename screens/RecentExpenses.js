@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 export default function RecentExpenses() {
-  return <div>Recent Expenses</div>;
+  return <Text>Recent Expenses</Text>;
 }
 
 const styles = StyleSheet.create({});

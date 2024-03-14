@@ -25,6 +25,19 @@ export default function ManageExpense({ route, navigation }) {
     navigation.goBack();
   }
   function confirmHandler() {
+    if (isEditing) {
+      expenseContext.updateExpense(editedExpenseId, {
+        description: "Test update",
+        amount: 14.23,
+        date: new Date("2024-3-8"),
+      });
+    } else {
+      expenseContext.addExpense({
+        description: "Test add",
+        amount: 14.23,
+        date: new Date("2024-3-9"),
+      });
+    }
     navigation.goBack();
   }
 

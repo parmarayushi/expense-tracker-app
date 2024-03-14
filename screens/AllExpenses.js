@@ -9,6 +9,7 @@ export default function AllExpenses() {
     <ExpensesOutput
       expenses={expensesContext.expenses}
       expensesPeriod="Total"
+      fallbackText="No registered Expenses"
     />
   );
 }

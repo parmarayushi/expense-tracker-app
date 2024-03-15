@@ -84,7 +84,7 @@ export default function App() {
     //-----------------------DEMO FORM----------------------------
 
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Form">
         <Stack.Screen name="Form" component={DemoForm} />
         <Stack.Screen name="List" component={DemoList} />
       </Stack.Navigator>

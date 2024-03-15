@@ -1,46 +1,43 @@
 import { useState } from "react";
-import {
-  Alert,
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
+
+const demoForm = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  contact: "",
+  address: "",
+};
 
 export default function DemoForm({ navigation }) {
-  const [input, setInputs] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    contact: "",
-    address: "",
-  });
-  const [data, setData] = useState([]);
+  const [input, setInputs] = useState(demoForm);
+  // const [data, setData] = useState([]);
 
   function handleInputChange(inputs, enteredValue) {
-    setInputs((curInputs) => {
-      return { ...curInputs, [inputs]: enteredValue };
+    setInputs((prevInputs) => {
+      return { ...prevInputs, [inputs]: enteredValue };
     });
   }
 
   const handleSubmit = () => {
     // Perform validation
-    if (
-      !input.firstName ||
-      !input.lastName ||
-      !input.email ||
-      !input.contact ||
-      !input.address
-    ) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
+    // if (
+    //   !input.firstName ||
+    //   !input.lastName ||
+    //   !input.email ||
+    //   !input.contact ||
+    //   !input.address
+    // ) {
+    //   Alert.alert("Error", "Please fill in all fields");
+    //   return;
+    // }
 
     // If validation passes, add data to the list
-    setData([...data, input]);
-    setInputs("");
+    // setData((predata) => [...predata, input]);
+    // console.log(data);
 
-    navigation.navigate("List", { formData: data });
+    navigation.navigate("List", { formData: input });
+    setInputs("");
   };
 
   return (

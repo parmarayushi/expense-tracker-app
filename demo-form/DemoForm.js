@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { FormDataContext } from "./context/form-context";
 
 const demoForm = {
   firstName: "",
@@ -10,8 +11,8 @@ const demoForm = {
 };
 
 export default function DemoForm({ navigation }) {
+  const formCtx = useContext(FormDataContext);
   const [input, setInputs] = useState(demoForm);
-  // const [data, setData] = useState([]);
 
   function handleInputChange(inputs, enteredValue) {
     setInputs((prevInputs) => {
@@ -33,11 +34,9 @@ export default function DemoForm({ navigation }) {
     // }
 
     // If validation passes, add data to the list
-    // setData((predata) => [...predata, input]);
-    // console.log(data);
-
-    navigation.navigate("List", { formData: input });
+    formCtx.addData(input);
     setInputs("");
+    navigation.navigate("List");
   };
 
   return (

@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { Row, Table } from "react-native-table-component";
+import { FormDataContext } from "./context/form-context";
 
-export default function DemoList({ route }) {
-  const { formData } = route.params;
-  const [data, setData] = useState([]);
+export default function DemoList() {
+  const { formData } = useContext(FormDataContext);
 
   const tableHead = ["First Name", "Last Name", "Email", "Contact", "Address"];
-
-  useEffect(() => {
-    setData((prevData) => [...prevData, formData]);
-  }, [formData]);
 
   return (
     <View style={styles.container}>
       {/* Simple Table */}
-      <Table borderStyle={styles.borderStyle}>
+      {/* <Table borderStyle={styles.borderStyle}>
         <Row
           data={tableHead}
           style={styles.head}
           textStyle={styles.textStyle}
         />
-        {data.map((rowData, index) => (
+        {formData.map((rowData, index) => (
           <Row
             key={index}
             data={[
@@ -34,10 +30,10 @@ export default function DemoList({ route }) {
             textStyle={styles.text}
           />
         ))}
-      </Table>
+      </Table> */}
 
       {/* Table with scroll view */}
-      {/* <Table borderStyle={styles.borderStyle}>
+      <Table borderStyle={styles.borderStyle}>
         <Row
           data={tableHead}
           style={styles.head}
@@ -60,7 +56,7 @@ export default function DemoList({ route }) {
             />
           ))}
         </Table>
-      </ScrollView> */}
+      </ScrollView>
     </View>
   );
 }

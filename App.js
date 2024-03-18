@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GlobalStyles } from "./constants/styles";
 import DemoForm from "./demo-form/DemoForm";
 import DemoList from "./demo-form/DemoList";
+import FormContextProvider from "./demo-form/context/form-context";
 import AllExpenses from "./screens/AllExpenses";
 import RecentExpenses from "./screens/RecentExpenses";
 import IconButton from "./ui/IconButton";
@@ -83,11 +84,13 @@ export default function App() {
 
     //-----------------------DEMO FORM----------------------------
 
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Form">
-        <Stack.Screen name="Form" component={DemoForm} />
-        <Stack.Screen name="List" component={DemoList} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <FormContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Form">
+          <Stack.Screen name="Form" component={DemoForm} />
+          <Stack.Screen name="List" component={DemoList} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FormContextProvider>
   );
 }

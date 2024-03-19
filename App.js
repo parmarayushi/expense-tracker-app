@@ -2,12 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "react-native";
 import { GlobalStyles } from "./constants/styles";
-import DemoForm from "./demo-form/DemoForm";
-import DemoList from "./demo-form/DemoList";
-import FormContextProvider from "./demo-form/context/form-context";
 import AllExpenses from "./screens/AllExpenses";
+import ManageExpense from "./screens/ManageExpense";
 import RecentExpenses from "./screens/RecentExpenses";
+import ExpensesContextProvider from "./store/expensesContext";
 import IconButton from "./ui/IconButton";
 
 const Stack = createNativeStackNavigator();
@@ -61,36 +61,36 @@ function ExpensesOverview() {
 
 export default function App() {
   return (
-    //   <>
-    //     <StatusBar style="light" />
-    //     <ExpensesContextProvider>
-    //       <NavigationContainer>
-    //         <Stack.Navigator
-    //           screenOptions={{
-    //             headerStyle: { backgroundColor: GlobalStyles.colors.primary400 },
-    //             headerTintColor: "white",
-    //           }}
-    //         >
-    //           <Stack.Screen
-    //             name="ExpensesOverview"
-    //             component={ExpensesOverview}
-    //             options={{ headerShown: false }}
-    //           />
-    //           <Stack.Screen name="ManageExpense" component={ManageExpense} />
-    //         </Stack.Navigator>
-    //       </NavigationContainer>
-    //     </ExpensesContextProvider>
-    //   </>
+    <>
+      <StatusBar style="light" />
+      <ExpensesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: GlobalStyles.colors.primary400 },
+              headerTintColor: "white",
+            }}
+          >
+            <Stack.Screen
+              name="ExpensesOverview"
+              component={ExpensesOverview}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="ManageExpense" component={ManageExpense} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ExpensesContextProvider>
+    </>
 
     //-----------------------DEMO FORM----------------------------
 
-    <FormContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Form">
-          <Stack.Screen name="Form" component={DemoForm} />
-          <Stack.Screen name="List" component={DemoList} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </FormContextProvider>
+    // <FormContextProvider>
+    //   <NavigationContainer>
+    //     <Stack.Navigator initialRouteName="Form">
+    //       <Stack.Screen name="Form" component={DemoForm} />
+    //       <Stack.Screen name="List" component={DemoList} />
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // </FormContextProvider>
   );
 }

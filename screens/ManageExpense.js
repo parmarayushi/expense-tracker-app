@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 import { GlobalStyles } from "../constants/styles";
 import { ExpenseContext } from "../store/expensesContext";
+import ErrorOverlay from "../ui/ErrorOverlay";
 import IconButton from "../ui/IconButton";
 import LoadingOverlay from "../ui/LoadingOverlay";
 import {
@@ -13,6 +14,7 @@ import {
 
 export default function ManageExpense({ route, navigation }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState();
 
   const expenseContext = useContext(ExpenseContext);
 
@@ -32,9 +34,14 @@ export default function ManageExpense({ route, navigation }) {
 
   async function deleteExpenseHandler() {
     setIsSubmitting(true);
-    expenseContext.deleteExpense(editedExpenseId);
-    await deleteExpense(editedExpenseId);
-    navigation.goBack();
+    try {
+      expenseContext.deleteExpense(editedExpenseId);
+      await deleteExpense(editedExpenseId);
+      navigation.goBack();
+    } catch (error) {
+      setError("Could not delete expense - try again later");
+    }
+    setIsSubmitting(false);
   }
 
   function cancelHandler() {
@@ -42,19 +49,28 @@ export default function ManageExpense({ route, navigation }) {
   }
 
   async function confirmHandler(expenseData) {
-    // setIsSubmitting(true);
-    if (isEditing) {
-      expenseContext.updateExpense(editedExpenseId, expenseData);
-      await updateExpense(editedExpenseId, expenseData);
-    } else {
-      const id = await storeExpenses(expenseData);
-      expenseContext.addExpense({ ...expenseData, id: id });
+    setIsSubmitting(true);
+    try {
+      if (isEditing) {
+        expenseContext.updateExpense(editedExpenseId, expenseData);
+        await updateExpense(editedExpenseId, expenseData);
+      } else {
+        const id = await storeExpenses(expenseData);
+        expenseContext.addExpense({ ...expenseData, id: id });
+      }
+      navigation.goBack();
+    } catch (error) {
+      setError("Could not save data - please try agin later");
+      setIsSubmitting(false);
     }
-    navigation.goBack();
   }
 
   if (isSubmitting) {
     return <LoadingOverlay />;
+  }
+
+  if (error && !isSubmitting) {
+    return <ErrorOverlay message={error} />;
   }
 
   return (

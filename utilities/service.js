@@ -2,8 +2,11 @@ import axios from "axios";
 
 const baseUrl = "https://react-native-app-3749f-default-rtdb.firebaseio.com";
 
-export function storeExpenses(expenseData) {
-  axios.post(`${baseUrl}/expenses.json`, expenseData);
+export async function storeExpenses(expenseData) {
+  const response = await axios.post(`${baseUrl}/expenses.json`, expenseData);
+  //name is the property name for the auto generated id in firebase
+  const id = response.data.name;
+  return id;
 }
 
 export async function fetchExpenses() {
